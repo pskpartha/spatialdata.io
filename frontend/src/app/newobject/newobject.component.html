@@ -1,0 +1,108 @@
+
+  <div class="row">
+    <div class="col-md-9">
+        <!-- <mat-card color="primary" class="d-inline-block align-top w100"> -->
+          <div class="d-flex justify-content-between mr-1">
+              <div class="float-left">
+            <mat-form-field id="search-item" style="width:300px !important" class="align-baseline">
+    
+              <input matInput 
+                  placeholder="Search Place" 
+                  [(ngModel)]="searchvalue" 
+                  [matAutocomplete]="auto"
+                  [formControl]="mapSearchCtrl">
+      
+              <button mat-button *ngIf="searching" matSuffix mat-icon-button>
+                <mat-icon color="primary" class="animation-rotate">autorenew</mat-icon>
+              </button>
+    
+              <button mat-button *ngIf="searchvalue" matSuffix mat-icon-button [attr.aria-label]="Clear" (click)="clearSearch();">
+                <mat-icon color="primary">close</mat-icon>
+              </button>
+    
+              <mat-autocomplete [displayWith]="displayFn" #auto="matAutocomplete" autoActiveFirstOption="true" (optionSelected)="changeMapLocation($event.option.value)">
+                <mat-option *ngFor="let result of searchResults" [value]="result">
+                  <span class="d-inline-block align-middle">{{ result.display_name }}</span>
+                  <!-- <small class="font-xs txt-darkviolet align-middle">({{ result.category }})</small>  -->
+                </mat-option>
+              </mat-autocomplete>
+    
+            </mat-form-field>
+          </div>
+            <div class="float-right py-3" >
+                <mat-radio-group
+                class="layer-radio-group align-middle"
+                [(ngModel)]="currentlayer">
+                <mat-radio-button class="layer-radio-group-item" (click) = "layerChanged(layer)" color="primary" *ngFor="let layer of layers" [value]="layer">
+                  {{layer}}
+                </mat-radio-button>
+              </mat-radio-group>
+            </div>
+            
+            <!--
+            <button mat-mini-fab color="primary" (click)="doSearch();" class="ml-4 mt-1 animate-all" [ngClass]="{ 'is-disabled': !searchvalue }">
+              <mat-icon [attr.aria-label]="'ORDER_ADDOBJECT.SEARCH' | translate">search</mat-icon>
+            </button>
+            -->
+    
+          <!-- </mat-card> -->
+          </div>
+      <div id="map" class="map"></div>
+    </div>
+    <div class="col-md-3 mt-2">
+        <button [disabled]="!activeClearButton"  mat-raised-button class="mr-3" (click)="clearDraw()" color="basic">CLEAR DRAW</button>
+        <button [disabled]="!activeSaveButton" (click)="saveDraw()" mat-raised-button color="primary">SAVE DRAW</button>
+        <!-- <button class="mr-3" (click)="checkDraw()" mat-flat-button color="primary">Check Draw</button> -->
+        <hr>
+        <div *ngIf="showWarningMsg" class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>TOO Large! {{objectsize | number}} KM (square)</strong> Object size is more than 1001 KM (square).
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+
+        <form [formGroup]="newobjectform">
+            <div class="form-group">
+            
+                <label class="badge badge-pill badge-light">Object Name</label>
+                <input class="form-control" minlength="10" formControlName="newObjectName" required>
+                <small *ngIf="newobjectform.get('newObjectName').hasError('minlength')"> <span class="badge badge-warning">Minimun 10 chars</span></small>
+                <br>
+                <label class="badge badge-pill badge-light">Object Type</label>
+                <input class="form-control" formControlName="newObjectType" readonly>
+                <br>
+                <label class="badge badge-pill badge-light">Object Type</label>
+                <input class="form-control" minlength="10"  formControlName="newObjectLoc" readonly required>
+                <small *ngIf="newobjectform.get('newObjectLoc').hasError('required')"> <span class="badge badge-warning">Should not be blank</span></small>
+                <br>
+            </div>
+        </form>
+        <mat-chip-list>
+            <span class="badge">AREA SIZE</span>
+             <mat-chip color="primary" selected>{{objectsize}} KM<sup>2</sup></mat-chip>
+           </mat-chip-list>
+        <div id="status"></div>
+        <mat-progress-bar *ngIf="progressbarShow" class="mb-2" mode="indeterminate"></mat-progress-bar>
+        <div *ngIf="showSuccessMsg" class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>SUCCESS!</strong> Object details saved successfully.
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <hr>
+        <button [disabled]="(!newobjectform.get('newObjectName').valid) || (!newobjectform.get('newObjectLoc').valid)"  [matMenuTriggerFor]="menu" style="max-height: 40px;" mat-raised-button color="accent"
+        class="text-uppercase">
+        <mat-icon class="d-sm-inline-block mr-2">save_alt</mat-icon>
+        download draw as 
+      </button>
+      <!-- <button mat-button [matMenuTriggerFor]="menu">Menu</button> -->
+      <mat-menu #menu="matMenu">
+        <button (click)="downloadData('geojson')" mat-menu-item>GEOJSON</button>
+        <button (click)="downloadData('kml')" mat-menu-item>KML</button>
+        <!-- <button (click)="downloadData('shape')" mat-menu-item>Shape</button> -->
+      </mat-menu>
+      
+    </div>
+  </div>
+
+ 

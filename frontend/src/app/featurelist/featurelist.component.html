@@ -1,0 +1,49 @@
+<div>
+  <button [disabled]="bboxstatusDisable" (click)="convertCollectionToBBOX()" style="max-height: 35px;" mat-flat-button color="accent"
+    class="text-uppercase mr-1">
+    Bounding BOX
+  </button> 
+  
+  <button [disabled]="convexstatusDisable"  (click)="convertCollectionToConvexHull()" style="max-height: 35px;" mat-flat-button color="accent"
+    class="text-uppercase mr-1">
+    Convex Hull
+  </button>
+  <mat-icon matTooltip="To convert in Bounding Box, if it is POINT object then you need to select at least 2 objects and To convert in Convex Hull you need to select at least 3 objects to get better result" style="cursor:pointer;"
+          class="txt-darkviolet mr-1 align-middle d-lg-inline-block">live_help</mat-icon>
+</div>
+
+
+<table  id="featureTable" class="table table-borderless mt-3">
+  <!-- <thead>
+      <tr >
+        <th scope="col"></th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+      </tr>
+    </thead> -->
+  <tbody class="">
+    <tr [@rowsAnimation]="" *ngFor="let feat of features; let i=index">
+      <td (click)="rowSelected()"><input id="checkId" type="checkbox" /></td>
+      <td data-id='geo_footprint' class='hidden'>{{feat | json}}</td>
+      <td style="font-size: .9rem;" scope="row">{{feat.objectName}}</td>
+      <td>
+        <!-- {{feat.objectType}} -->
+        <mat-icon matTooltip="DELETE OBJECT" style="cursor:pointer;"
+          (click)="$event.stopPropagation();deleteObjectFromData(feat)"
+          class="txt-darkviolet mr-1 align-middle d-lg-inline-block">delete</mat-icon>
+      </td>
+      <!-- <td>{{feat.objectLoc| slice:0:10}}</td> -->
+      <td>
+        <mat-icon matTooltip="EDIT OBJECT DETAILS" style="cursor:pointer;"
+          (click)="$event.stopPropagation();getSelectedRow(feat)"
+          class="txt-darkviolet mr-1 align-middle d-lg-inline-block">edit_location</mat-icon>
+      </td>
+      <!-- <td>
+        <mat-icon   matTooltip="SAVE OBJECT DETAILS"  style="cursor:pointer;" (click)="$event.stopPropagation();saveObject(feat)" 
+        class="txt-darkviolet mr-1 align-middle d-lg-inline-block">save</mat-icon>
+      </td> -->
+
+    </tr>
+
+  </tbody>
+</table>

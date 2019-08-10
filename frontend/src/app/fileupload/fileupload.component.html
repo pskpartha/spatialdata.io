@@ -1,0 +1,37 @@
+<div class="row">
+  <div class="col-sm-9">
+    <app-mapc></app-mapc>
+  </div>
+  <div class="col-sm-3">
+
+    <mat-progress-bar *ngIf="showfileprogress" mode="indeterminate"></mat-progress-bar>
+    <div class="mb-4">
+
+        <div class="browse-option mb-1 btn-block fileUpload blue-btn btn">
+            <!-- <mat-icon class="d-sm-inline-block mr-2">save_alt</mat-icon> -->
+          <span id ="geojson-uploadBtn"> UPLOAD DATA </span> <input class="uploadlogo" id="file-upload" type="file" accept="*"
+            (change)="fileUpload($event)">
+  
+        </div>
+
+<!--         
+        <span class="badge">UPLOAD ▶</span>
+      <div class="browse-option mb-1 mx-1 fileUpload blue-btn btn">
+        <span id ="geojson-uploadBtn"> GEOJSON </span> <input class="uploadlogo" id="file-upload" type="file" accept=".geojson,.json"
+          (change)="fileGEOJSONUpload($event)">
+
+      </div>
+      <div class="browse-option mb-1 mx-1 fileUpload blue-btn btn">
+        <span id ="kml-uploadBtn"> KML </span> <input class="uploadlogo" id="file-upload" type="file" accept=".xml,.kml"
+          (change)="fileKMLUpload($event)">
+      </div> -->
+    </div>
+
+
+    
+    <div>
+      <app-featurelist></app-featurelist>
+    </div>
+  </div>
+
+</div>

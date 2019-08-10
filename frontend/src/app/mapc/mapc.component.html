@@ -1,0 +1,29 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="d-flex justify-content-between">
+            <div class="float-left">
+                <mat-radio-group id="layer-change-option-id" class="layer-radio-group" [(ngModel)]="currentlayer">
+                    <mat-radio-button class="layer-radio-group-item" (click)="layerChanged(layer)" color="primary"
+                        *ngFor="let layer of layers" [value]="layer">
+                        {{layer}}
+                    </mat-radio-button>
+                </mat-radio-group>
+                
+            </div>
+            <div class="float-right" >
+                    <button id="download-btn-from-editfeature"  [matMenuTriggerFor]="menu" style="max-height: 35px;" mat-flat-button color="primary"
+                    class="text-uppercase">
+
+                    download as 
+                  </button>
+                  <!-- <button mat-button [matMenuTriggerFor]="menu">Menu</button> -->
+                  <mat-menu #menu="matMenu">
+                    <button (click)="downloadData('geojson')" mat-menu-item>GEOJSON</button>
+                    <button (click)="downloadData('kml')" mat-menu-item>KML</button>
+                  </mat-menu>
+            </div>
+        </div>
+        <div id="geomap" class="map"></div>
+        <!-- <div id="map" class="map"></div> -->
+    </div>
+</div>

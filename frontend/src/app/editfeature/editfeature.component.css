@@ -1,0 +1,36 @@
+/* .mat-menu-item {
+    color: blue !important;
+  }
+  
+  button.mat-menu-item{
+      background-color: white;
+  }
+  
+  button.mat-menu-item:hover {
+      background-color: blue;
+      color: #fff !important;
+  } */
+
+  .input-group-text {
+    display: flex;
+    align-items: center;
+    padding: .375rem .1rem;
+    margin-bottom: 0;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #3f51b4;
+    text-align: center;
+    white-space: nowrap;
+    background-color: #ffffff;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+}
+
+.mat-slider-horizontal {
+    width: 228px;
+}
+
+.mat-dialog-content {
+    padding: 0 2px;
+}

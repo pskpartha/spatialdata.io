@@ -1,0 +1,52 @@
+<!-- <div class="row">
+  <div class="col-md-12">
+      <div mat-dialog-title>
+          <div class="alert alert-warning" role="alert">
+              {{obname}}
+            </div>
+          </div>
+      <div mat-dialog-content>
+          <div id="edit-map" class="edit-map"></div>
+      </div>
+      
+      <mat-dialog-actions>
+          <td><button (click)="saveObject(objectId)" mat-flat-button mat-dialog-close color="primary"> SAVE </button></td>
+          <button mat-button mat-dialog-close tabindex="-1">NO</button>
+        </mat-dialog-actions>
+  </div>
+</div> -->
+
+<button  class="btn-modal-close btn-modal-close-confirm float-right btn-cursor" [mat-dialog-close]="false" >
+    <i class='material-icons'>close</i>
+  </button>
+  <div  mat-dialog-title class="txt-darkviolet font-weight-light pt-1"> 
+      <span class="modal-icon">  <mat-icon class="d-sm-inline-block mr-2">location_on</mat-icon></span>
+      <span style="font-size: 1.2rem;"  class="modal-titile"> {{obname}}</span>
+      </div>
+
+  <div mat-dialog-content>
+    <div class="col-12 p-1">
+        <mat-radio-group
+        class="layer-radio-group"
+        [(ngModel)]="currentlayer">
+        <mat-radio-button class="layer-radio-group-item" (click) = "layerChanged(layer)" color="primary" *ngFor="let layer of layers" [value]="layer">
+          {{layer}}
+        </mat-radio-button>
+      </mat-radio-group>
+        <div id="edit-map" class="edit-map"></div>
+    </div>
+  </div>
+  
+  <div mat-dialog-actions class=" d-flex justify-content-between mr-1 py-4">
+      <div class="float-left"></div>
+      <!-- <button mat-raised-button color="white" [mat-dialog-close]="{click:'edit'}" class="text-uppercase">
+        <mat-icon class="d-none d-sm-inline-block mr-2">text_fields</mat-icon>
+        Edit Annotation
+      </button>
+       -->
+      <button id="object-details-update-btn" (click)="saveObject(objectId)" mat-raised-button color="primary" [mat-dialog-close]="false" class="text-uppercase float-right">
+        <mat-icon class="d-sm-inline-block mr-2">update</mat-icon>
+        update object details
+      </button> 
+      
+      </div>

@@ -1,0 +1,18 @@
+
+tr { 
+    background-color: #ffffff; 
+    border-bottom: solid 3px #f8f9fa;
+    border-radius: 3px;
+}
+table {
+    width: 100%;
+  }
+  
+  th.mat-sort-header-sorted {
+    color: black;
+  }
+  
+
+td.mat-cell, td.mat-footer-cell, th.mat-header-cell {
+    padding: 1px 5px;
+}

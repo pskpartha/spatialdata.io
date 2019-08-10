@@ -1,0 +1,92 @@
+<button style="cursor:pointer;" class="btn-modal-close btn-modal-close-confirm float-right btn-cursor"
+  [mat-dialog-close]="false">
+  <i class='material-icons'>close</i>
+</button>
+<div mat-dialog-title class="txt-darkviolet font-weight-light pt-1">
+  <div class="input-group input-group-sm mb-3">
+    <div class="input-group-prepend">
+      <span class="input-group-text" id="inputGroup-sizing-sm">
+        <mat-icon class="mr-2">location_on</mat-icon>
+      </span>
+    </div>
+    <!-- <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm"> -->
+    <input aria-label="Small" style="font-size: .87rem;max-width: 600px" [(ngModel)]="areaname" type="text"
+      class="form-control modal-titile" aria-describedby="inputGroup-sizing-sm">
+  </div>
+
+
+
+</div>
+
+<div mat-dialog-content>
+  <div class="col-12">
+    <div class="d-flex justify-content-between">
+      <div class="float-left">
+        <mat-radio-group id="edit-layer-chnaged-id" class="layer-radio-group" [(ngModel)]="currentlayer">
+          <mat-radio-button class="layer-radio-group-item" (click)="layerChanged(layer)" color="primary"
+            *ngFor="let layer of layers" [value]="layer">
+            {{layer}}
+          </mat-radio-button>
+        </mat-radio-group>
+      </div>
+  
+    <div class="float-right">
+        <mat-chip-list>
+       <span class="badge">AREA SIZE</span>
+        <mat-chip color="primary" selected>{{cobjectsize}} KM<sup>2</sup></mat-chip>
+      </mat-chip-list>
+    </div>
+  </div>
+  <div id="feat-edit-map" class="feat-edit-map"></div>
+</div>
+</div>
+
+<div mat-dialog-actions class=" d-flex justify-content-between mr-1 py-4">
+  <div class="float-left">
+    <div style="display: inline">
+      <!-- <mat-chip-list>
+        <mat-chip color="primary" selected>CHANGE BUFFER SIZE</mat-chip>
+      </mat-chip-list> -->
+      <span class="badge">CHANGE BUFFER SIZE</span>
+    </div>
+    <div id="buffer-size-add-option" style="display: inline;">
+      <mat-slider style="cursor:pointer;" class="example-margin" color="primary" [disabled]="disabled" [invert]="invert"
+        [max]="max" [min]="min" [thumbLabel]="thumbLabel" [(ngModel)]="value" [vertical]="vertical"
+        (change)="onSliderChange($event)">
+      </mat-slider>
+      <span style="color: #3f51b4" class="badge">METER</span>
+    </div>
+  </div>
+  <!-- <button mat-raised-button color="white" [mat-dialog-close]="{click:'edit'}" class="text-uppercase">
+    <mat-icon class="d-none d-sm-inline-block mr-2">text_fields</mat-icon>
+    Edit Annotation
+  </button>
+   -->
+  <div class="float-right">
+    <button (click)="updateFeatureinfo(data.originalData.obid)" id="download-btn-from-editfeature"
+      style="max-height: 40px;" mat-raised-button color="warn" class="text-uppercase mr-1" [mat-dialog-close]="false">
+      <mat-icon class="d-sm-inline-block mr-2">update</mat-icon>
+      update info
+    </button>
+
+    <button id="download-btn-from-editfeature" [matMenuTriggerFor]="menu" style="max-height: 40px;" mat-raised-button
+      color="accent" class="text-uppercase mr-1">
+      <mat-icon class="d-sm-inline-block mr-2">save_alt</mat-icon>
+      download as
+    </button>
+    <!-- <button mat-button [matMenuTriggerFor]="menu">Menu</button> -->
+    <mat-menu #menu="matMenu">
+      <button (click)="downloadData('geojson')" mat-menu-item>GEOJSON</button>
+      <button (click)="downloadData('kml')" mat-menu-item>KML</button>
+      <!-- <button (click)="downloadData('shape')" mat-menu-item>Shape</button> -->
+    </mat-menu>
+
+
+    <button style="max-height: 40px;" (click)="saveObject(data.areaname)" mat-raised-button color="primary"
+      [mat-dialog-close]="false" class="text-uppercase ">
+      <mat-icon class="d-sm-inline-block mr-2">save</mat-icon>
+      save object for future
+    </button>
+  </div>
+
+</div>

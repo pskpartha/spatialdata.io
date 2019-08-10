@@ -1,0 +1,110 @@
+<div class="row">
+  <div class="col-md-8">
+      <mat-form-field id="object-list-search-option" style="width:300px !important">
+          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search Name">
+        </mat-form-field>
+
+    <table id="object-list-data-table" mat-table [dataSource]="dataSource" matSort class="mat-elevation-z0">
+
+      <!-- Position Column -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+        <td mat-cell *matCellDef="let element"> {{element.object_id | number}} </td>
+      </ng-container>
+    
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> NAME </th>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+      </ng-container>
+    
+      <!-- Weight Column -->
+      <ng-container matColumnDef="edit">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+        <td  matTooltip="EDIT OBJECT LOCATION" mat-cell *matCellDef="let element">  <mat-icon color="primary" style="cursor:pointer;"
+          (click)="$event.stopPropagation();editObject(element.object_id)"
+          class="txt-darkviolet mr-1 align-middle d-lg-inline-block">edit_location</mat-icon> </td>
+      </ng-container>
+    
+
+      <ng-container matColumnDef="delete">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+        <td  matTooltip="DELETE OBJECT" mat-cell *matCellDef="let element">  <mat-icon color="warn" style="cursor:pointer;"
+          (click)="$event.stopPropagation();deleteObject(element.object_id)"
+          class="txt-darkviolet mr-1 align-middle d-lg-inline-block">delete_forever</mat-icon> </td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="share">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+        <td matTooltip="SHARE OBJECT DETAILS" mat-cell *matCellDef="let element"> 
+            <button id="share-data-btn" (click)="$event.stopPropagation();shareObject(element.object_id)" mat-flat-button color="white"
+            class="text-uppercase">
+           <mat-icon class="d-sm-inline-block mr-2">share</mat-icon>
+           Share
+         </button>
+        </td>
+      </ng-container>
+    
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[10, 20, 30, 40, 50]" showFirstLastButtons></mat-paginator>
+    
+
+    <!-- <table id="objectTable" class="table table-borderless">
+      <tbody class="">
+        <tr [@rowsAnimation]="" *ngFor="let object of objectList">
+          <td>{{object.object_id}}</td>
+          <td style="font-size: .9rem;" scope="row">{{object.name}}</td>
+          <td>
+            <mat-icon color="primary" style="cursor:pointer;"
+              (click)="$event.stopPropagation();editObject(object.object_id)"
+              class="txt-darkviolet mr-1 align-middle d-lg-inline-block">edit_location</mat-icon>
+          </td>
+          <td>
+            <mat-icon color="warn" style="cursor:pointer;"
+              (click)="$event.stopPropagation();deleteObject(object.object_id)"
+              class="txt-darkviolet mr-1 align-middle d-lg-inline-block">delete_forever</mat-icon>
+          </td>
+          <td>
+            <button (click)="$event.stopPropagation();shareObject(object.object_id)" mat-flat-button color="white"
+               class="text-uppercase">
+              <mat-icon class="d-sm-inline-block mr-2">share</mat-icon>
+              Share
+            </button>
+
+          </td>
+        </tr>
+
+      </tbody>
+    </table> -->
+  </div>
+
+  <div class="col-md-4">
+    <div id="share-data-page" *ngIf="showShareOption" class="share-option">
+      <div class="title-download-option alert alert-light text-uppercase text-secondary"> You can download and share
+        your object feature data from here </div>
+      <hr>
+      <label class="badge badge-pill badge-warning">DOWNLOAD</label>
+      <br>
+      <button class="m-1" (click)="downloadDataGEOJSON()" mat-flat-button color="primary">GEOJSON</button>
+      <button classs="m-1" (click)="downloadDataKML()" mat-flat-button color="primary">KML</button>
+      <hr>
+      <form [formGroup]="shareobjectform">
+        <div class="form-group">
+          <label class="badge badge-pill badge-warning">API LINK</label>
+          <input class="form-control" minlength="10" formControlName="apilink" required>
+          <br>
+          <label class="badge badge-pill badge-warning">OBJECT DATA</label>
+          <textarea rows="4" cols="50" class="form-control" formControlName="objectdata">
+
+                </textarea>
+          <br>
+        </div>
+      </form>
+    </div>
+
+    <!-- <div id="map" class="map"></div> -->
+  </div>
+</div>
